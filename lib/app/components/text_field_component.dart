@@ -82,6 +82,11 @@ class _TextFieldComponentState extends State<TextFieldComponent> {
         obscureText: widget.isPasswordField == true ? _fieldVisibility : false,
         textInputAction: widget.textInputAction,
         decoration: InputDecoration(
+          filled: true,
+          fillColor: AppColors.kWhiteColor,
+           border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
           hintText: widget.hint ?? "",
           hintStyle: const TextStyle(
             color: AppColors.hintColor,
@@ -89,7 +94,7 @@ class _TextFieldComponentState extends State<TextFieldComponent> {
             fontSize: TextSize.textSmallFontSize,
           ),
           errorMaxLines: 3,
-          border: InputBorder.none,
+          // border: InputBorder.none,
           contentPadding: const EdgeInsets.symmetric(horizontal: 10),
           suffixIcon: widget.isPasswordField == true
               ? GestureDetector(
