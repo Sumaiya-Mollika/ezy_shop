@@ -37,6 +37,8 @@ dependencies:
   get: ^4.6.6
   dio: ^5.7.0
   getwidget: ^5.0.0
+  connectivity_plus: ^6.1.2
+  google_fonts: ^6.2.1
 
 dev_dependencies:
   flutter_test:
