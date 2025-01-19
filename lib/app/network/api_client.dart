@@ -2,9 +2,9 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:ezy_shop/app/network/environment.dart';
+import 'package:ezy_shop/app/utils/constants.dart';
 
-
-class DioClient {
+class ApiClient {
   static Dio? _dio;
 
   static Dio get dio {
@@ -13,15 +13,13 @@ class DioClient {
       _dio!.options = BaseOptions(
         baseUrl: getBaseUrl(),
         contentType: "application/json",
+        responseType: ResponseType.json
       );
       _dio!.interceptors.add(InterceptorsWrapper(
-        onRequest: (options, handler) {
-        //   _token="";
-        //   if (_token != null && _token!.isNotEmpty) {
-        //   options.headers['Authorization'] = 'Bearer $_token';
-        // }
-          if (_dio!.options.headers.containsKey('Authorization')) {
-            options.headers.addAll(_dio!.options.headers);
+        onRequest: (options, handler) async {
+          final token = await storage.read(StorageKey.token);
+          if (token != null && token.isNotEmpty) {
+            options.headers['Authorization'] = 'Bearer $token';
           }
           return handler.next(options);
         },
@@ -42,7 +40,6 @@ class DioClient {
     }
     return _dio!;
   }
-
 
   Future<Response> get(String path, {Map<String, dynamic>? queryParams}) async {
     try {
@@ -83,4 +80,3 @@ class DioClient {
     }
   }
 }
-

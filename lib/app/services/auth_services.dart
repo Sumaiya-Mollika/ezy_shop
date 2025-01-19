@@ -7,12 +7,12 @@ import '../models/user_data.dart';
 import '../network/api_client.dart';
 
 class AuthServices {
-  final dio = DioClient.dio;
+  final _dio = ApiClient.dio;
 
   Future<GenericObjectResponse<UserData>> signIn(
       Map<String, dynamic> request) async {
     try {
-      final response = await dio.post(AuthEndPoints.signInUrl(), data: request);
+      final response = await _dio.post(AuthEndPoints.signInUrl(), data: request);
       //   final jsonResponse = jsonDecode(response.data);
       return GenericObjectResponse.fromJson(
           response.data, (data) => UserData.fromJson(data));
