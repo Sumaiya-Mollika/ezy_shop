@@ -1,8 +1,11 @@
+import 'package:ezy_shop/app/utils/style.dart';
 import 'package:ezy_shop/app/views/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
-void main() {
+void main() async{
+   await GetStorage.init();
   runApp(const MyApp());
 }
 
@@ -16,7 +19,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
 
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor:AppColors.primary),
         useMaterial3: true,
       ),
       home:  LoginScreen(),
