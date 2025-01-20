@@ -1,7 +1,9 @@
+import 'package:ezy_shop/app/controllers/cart_controller.dart';
 import 'package:ezy_shop/app/models/product_response.dart';
 import 'package:ezy_shop/app/utils/style.dart';
 import 'package:ezy_shop/app/utils/util.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
 
 import '../components/text_component.dart';
@@ -12,6 +14,7 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cartController=Get.put(CartController());
     return GestureDetector(
       onTap: () {
     
@@ -50,7 +53,9 @@ class ProductCard extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: (){
-                            showQuantityBottomSheet(context,product);
+                          cartController.showQuantityBottomSheet(product);
+
+                           // showQuantityBottomSheet(context,product);
                         },
                         child: Icon(Icons.add_box,color: AppColors.primary,))
                

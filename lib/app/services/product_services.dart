@@ -10,16 +10,16 @@ import '../network/api_client.dart';
 class ProductServices {
   final _dio = ApiClient.dio;
 
-  Future<GenericObjectResponse<ProductResponse>> products(
-    ) async {
+  Future<GenericObjectResponse<ProductResponse>> products() async {
     try {
-      final response =
-          await _dio.get(ProductsEndPoints.productsUrl,);
-          log("Response Data: ${response.data}"); 
-     final data= GenericObjectResponse.fromJson(
+      final response = await _dio.get(
+        ProductsEndPoints.productsUrl,
+      );
+      log("Response Data: ${response.data}");
+      final data = GenericObjectResponse.fromJson(
           response.data, (data) => ProductResponse.fromJson(data));
- log(" Data: $data}"); 
-        return data;  
+      log(" Data: $data}");
+      return data;
     } on DioException catch (e) {
       throw Exception(e.response?.data['message'] ?? 'Sign-in failed');
     }
