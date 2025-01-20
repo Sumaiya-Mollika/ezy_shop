@@ -1,3 +1,4 @@
+import 'package:ezy_shop/app/models/user.dart';
 import 'package:ezy_shop/app/utils/style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,8 +21,7 @@ class AuthController extends GetxController {
   var isLoading = RxBool(false);
   final userName = RxString("");
   final password = RxString("");
-  final storage = GetStorage();
-
+final user=Rx<User?>(null);
   void signInUser(BuildContext context) async {
     if (userName.value.isEmpty || password.value.isEmpty) {
       Get.snackbar('Error', 'Username and password cannot be empty',
@@ -40,7 +40,7 @@ class AuthController extends GetxController {
 
       if (response.data != null) {
         storage.write(StorageKey.token, response.data!.token);
-        storage.write(StorageKey.user, response.data!.toJson());
+        storage.write(StorageKey.user, response.data!.user!.toJson());
 
         pushScreen(
           context,
@@ -54,4 +54,14 @@ class AuthController extends GetxController {
       isLoading.value = false;
     }
   }
+
+getUser() {
+  var userData = storage.read(StorageKey.user); 
+  if (userData != null) {
+    user.value = User.fromJson(userData); 
+  } else {
+    user.value = null;
+  }
+}
+
 }
