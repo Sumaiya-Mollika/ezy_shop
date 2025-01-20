@@ -1,9 +1,12 @@
 import 'package:ezy_shop/app/components/text_component.dart';
 import 'package:ezy_shop/app/models/product_response.dart';
+import 'package:ezy_shop/app/utils/constants.dart';
 import 'package:ezy_shop/app/utils/style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:photo_view/photo_view.dart';
+
+import '../models/cart_item.dart';
 
 
 
@@ -147,3 +150,62 @@ class _AnimatedDialogState extends State<_AnimatedDialog>
     );
   }
 }
+
+
+  String? getPromotionText(CartItem cartItem) {
+    if (cartItem.product.promotion == null) {
+      return null;
+    }
+
+    final promotion = cartItem.product.promotion!;
+    if (promotion.type == PromotionType.weight) {
+      return _applyWeightPromotion(cartItem);
+    } else if (promotion.type == PromotionType.gwp) {
+      return _applyGWPPromotion(cartItem);
+    }
+
+    return null; 
+  }
+
+  String _applyWeightPromotion(CartItem cartItem) {
+    final promotionDetails = cartItem.product.promotion!.promotionDetails!;
+    final totalWeight = cartItem.quantity * cartItem.product.weight!;
+    final regularPrice = cartItem.quantity * cartItem.product.mrp!;
+    for (var detail in promotionDetails) {
+      if (detail.minWeight! <= totalWeight &&
+          (detail.maxWeight == null || totalWeight <= detail.maxWeight!)) {
+        final discount = detail.amount!;
+
+        final discountPrice = (totalWeight / 1000) * discount;
+        final discountedPrice = regularPrice - discountPrice;
+        return '৳${discountedPrice.toStringAsFixed(2)} (৳$discount off/kg)';
+      }
+    }
+
+    return '৳${cartItem.product.mrp! * cartItem.quantity}';
+  }
+
+  String? _applyGWPPromotion(CartItem cartItem) {
+   //  final cartController = Get.put(CartController());
+ 
+    final promotionDetails = cartItem.product.promotion!.promotionDetails!;
+    final totalWeight = cartItem.quantity * cartItem.product.weight!;
+
+    for (var detail in promotionDetails) {
+      if (totalWeight >= detail.ruleWeight!) {
+        int numberOfGift = (totalWeight / detail.ruleWeight!).floor();
+        final numberOfFreeProduct = numberOfGift * detail.amount!.toInt();
+//         if(numberOfFreeProduct!=0){
+// cartController.addToCart(Products(
+//   id: detail.discountProduct!.id,
+//   title: detail.discountProduct!.title,
+//   prouductImages: detail.discountProduct!.productImages
+// ), numberOfFreeProduct);
+//         }
+
+        return '৳${cartItem.product.mrp! * cartItem.quantity} + $numberOfFreeProduct ${detail.discountProduct!.title}';
+      }
+    }
+return null;
+
+  }

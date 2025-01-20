@@ -13,7 +13,7 @@ class QuantityBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final CartController cartController = Get.find<CartController>();
+    final cartController = Get.put(CartController());
     final RxInt quantity = (product.minimumOrderQuantity ?? 1).obs;
 
     return Container(
@@ -63,8 +63,19 @@ class QuantityBottomSheet extends StatelessWidget {
                           EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                     ),
                     onChanged: (value) {
-                      quantity.value =
-                          int.tryParse(value) ?? product.minimumOrderQuantity!;
+                      if (value.isEmpty) {
+                        quantity.value = product.minimumOrderQuantity!;
+                      } else {
+                        int newValue = int.tryParse(value) ??
+                            product.minimumOrderQuantity!;
+                        if (newValue > product.stock!) {
+                          quantity.value = product.stock!;
+                        } else if (newValue < product.minimumOrderQuantity!) {
+                          quantity.value = product.minimumOrderQuantity!;
+                        } else {
+                          quantity.value = newValue;
+                        }
+                      }
                     },
                   ),
                 ),
@@ -83,10 +94,10 @@ class QuantityBottomSheet extends StatelessWidget {
           if (product.promotion != null) getPromotion(product.promotion),
           GFButton(
             color: AppColors.primary,
-            onPressed: () {
+            onPressed:quantity.value!=0? () {
               cartController.addToCart(product, quantity.value);
               Get.back();
-            },
+            }:null,
             child: TextComponent(
               'Add to Cart',
               fontSize: TextSize.k14FontSize,

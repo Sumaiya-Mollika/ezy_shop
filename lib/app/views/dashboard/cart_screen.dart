@@ -1,5 +1,6 @@
 import 'package:ezy_shop/app/controllers/bottom_nav_controller.dart';
-import 'package:ezy_shop/app/models/cart_item.dart';
+import 'package:ezy_shop/app/utils/constants.dart';
+import 'package:ezy_shop/app/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
@@ -11,7 +12,6 @@ import '../empty_data_screen.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     final cartController = Get.put(CartController());
@@ -34,9 +34,11 @@ class CartScreen extends StatelessWidget {
           itemCount: cartController.cartItems.length,
           itemBuilder: (context, index) {
             var cartItem = cartController.cartItems[index];
+            var promotionText = getPromotionText(cartItem);
+
             return Dismissible(
               key: Key(cartItem.product.id.toString()),
-                 direction: DismissDirection.endToStart, // Swipe direction
+              direction: DismissDirection.endToStart,
               background: Container(
                 color: AppColors.kErrorColor,
                 alignment: Alignment.centerRight,
@@ -44,95 +46,71 @@ class CartScreen extends StatelessWidget {
                 child: const Icon(Icons.delete, color: Colors.white),
               ),
               onDismissed: (direction) {
-                cartController.removeFromCart(cartItem); 
+                cartController.removeFromCart(cartItem);
                 Get.snackbar(
                   'Item Removed',
                   '${cartItem.product.title} has been removed from your cart.',
                   snackPosition: SnackPosition.BOTTOM,
                 );
               },
-              child: GFListTile(
-                avatar: cartItem.product.prouductImages!.isNotEmpty
-                    ? GFAvatar(
-                        shape: GFAvatarShape.standard,
-                        backgroundImage: NetworkImage(
-                            cartItem.product.prouductImages!.first.image!))
-                    : null,
-                titleText: cartItem.product.title ?? '',
-                subTitleText: '৳${cartItem.product.mrp! * cartItem.quantity}',
-                icon: SizedBox(
-                  width: 120,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        icon: Icon(Icons.remove, color: Colors.red),
-                        onPressed: () {},
+              child: Column(
+                children: [
+                  GFListTile(
+                    avatar: cartItem.product.prouductImages!.isNotEmpty
+                        ? GFAvatar(
+                            shape: GFAvatarShape.standard,
+                            backgroundImage: NetworkImage(
+                                cartItem.product.prouductImages!.first.image!))
+                        : null,
+                    titleText: cartItem.product.title ?? '',
+                    subTitleText: promotionText ??
+                        '৳${cartItem.product.mrp! * cartItem.quantity}',
+                    icon: SizedBox(
+                      width: 120,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
+                            icon: Icon(Icons.remove, color: Colors.red),
+                            onPressed: () {
+                              cartController.decreaseQuantity(cartItem);
+                            },
+                          ),
+                          TextComponent(cartItem.quantity.toString()),
+                          IconButton(
+                            icon: Icon(Icons.add, color: Colors.green),
+                            onPressed: () {
+                              cartController.increaseQuantity(cartItem);
+                            },
+                          ),
+                        ],
                       ),
-                      TextComponent(
-                        cartItem.quantity.toString(),
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.add, color: Colors.green),
-                        onPressed: () {},
-                      ),
-                    ],
+                    ),
                   ),
-                ),
+                  if (cartItem.product.promotion != null &&
+                      cartItem.product.promotion!.type == PromotionType.gwp&&
+                      promotionText != null)
+                    GFListTile(
+                      avatar: GFAvatar(
+                          shape: GFAvatarShape.standard,
+                          backgroundImage: NetworkImage(cartItem
+                              .product
+                              .promotion!
+                              .promotionDetails!
+                              .first
+                              .discountProduct!
+                              .productImages!
+                              .first
+                              .image!)),
+                      titleText: cartItem.product.promotion!.promotionDetails!
+                          .first.discountProduct!.title,
+                    )
+                ],
               ),
             );
           },
         );
       }),
-    );
-  }
-
-  void _showQuantityBottomSheet(CartItem cartItem) {
-    Get.bottomSheet(
-      QuantityBottomSheet(cartItem: cartItem),
-      isScrollControlled: true,
-    );
-  }
-}
-
-class QuantityBottomSheet extends StatelessWidget {
-  final CartItem cartItem;
-
-  QuantityBottomSheet({required this.cartItem});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(cartItem.product.title ?? ''),
-          Row(
-            children: [
-              IconButton(
-                icon: Icon(Icons.remove),
-                onPressed: () {
-                  //  cartController.changeQuantity(cartItem, -1);
-                },
-              ),
-              Text('${cartItem.quantity}'),
-              IconButton(
-                icon: Icon(Icons.add),
-                onPressed: () {
-                  //  Get.find<CartController>().changeQuantity(cartItem, 1);
-                },
-              ),
-            ],
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Get.back();
-            },
-            child: Text('Close'),
-          ),
-        ],
-      ),
     );
   }
 }

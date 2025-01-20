@@ -34,6 +34,7 @@ class Products {
   int? minimumOrderQuantity;
   num? mrp;
   int? stock;
+  int? freeProduct;
   List<ProuductImages>? prouductImages;
   Promotion? promotion;
 
@@ -47,6 +48,7 @@ class Products {
       this.minimumOrderQuantity,
       this.mrp,
       this.stock,
+      this.freeProduct,
       this.prouductImages,
       this.promotion});
 
@@ -59,6 +61,7 @@ class Products {
     weightUnit = json['weightUnit'];
     minimumOrderQuantity = json['minimumOrderQuantity'];
     mrp = json['mrp'];
+    
     stock = json['stock'];
     if (json['prouductImages'] != null) {
       prouductImages = <ProuductImages>[];
@@ -250,4 +253,6 @@ class DiscountProduct {
     }
     return data;
   }
+
+
 }

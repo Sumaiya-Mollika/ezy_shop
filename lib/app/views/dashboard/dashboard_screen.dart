@@ -1,5 +1,6 @@
 import 'package:ezy_shop/app/utils/style.dart';
 import 'package:ezy_shop/app/views/dashboard/cart_screen.dart';
+import 'package:ezy_shop/app/views/dashboard/profile_screen.dart';
 import 'package:ezy_shop/app/views/empty_data_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,6 +11,8 @@ import '../../controllers/cart_controller.dart';
 import 'shop_screen.dart';
 
 class DashboardScreen extends StatelessWidget {
+  const DashboardScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     Get.put(BottomNavBarController());
@@ -77,7 +80,8 @@ class DashboardScreen extends StatelessWidget {
               ),
             ),
             PersistentTabConfig(
-              screen: Scaffold(),
+               screen: ProfileScreen(),
+              
               item: ItemConfig(
                 activeForegroundColor: AppColors.primary,
                 icon: Icon(Icons.person),

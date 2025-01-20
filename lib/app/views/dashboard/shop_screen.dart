@@ -1,6 +1,6 @@
 
 import 'package:ezy_shop/app/utils/style.dart';
-import 'package:ezy_shop/app/views/product_card.dart';
+import 'package:ezy_shop/app/views/product/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';

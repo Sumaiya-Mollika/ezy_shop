@@ -13,3 +13,8 @@ class CurrencySign {
   static const usd = "\$";
 
 }
+
+class PromotionType{
+  static const weight ="WEIGHT";
+  static const gwp ="GWP";
+}

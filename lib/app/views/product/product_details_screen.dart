@@ -4,9 +4,9 @@ import 'package:ezy_shop/app/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
-import '../components/text_component.dart';
-import '../controllers/cart_controller.dart';
-import '../utils/constants.dart';
+import '../../components/text_component.dart';
+import '../../controllers/cart_controller.dart';
+import '../../utils/constants.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   const ProductDetailsScreen({super.key, required this.product});

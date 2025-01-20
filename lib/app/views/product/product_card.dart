@@ -2,14 +2,14 @@ import 'package:ezy_shop/app/controllers/cart_controller.dart';
 import 'package:ezy_shop/app/models/product_response.dart';
 import 'package:ezy_shop/app/utils/style.dart';
 import 'package:ezy_shop/app/utils/util.dart';
-import 'package:ezy_shop/app/views/product_details_screen.dart';
+import 'package:ezy_shop/app/views/product/product_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
-import '../components/text_component.dart';
-import '../utils/constants.dart';
+import '../../components/text_component.dart';
+import '../../utils/constants.dart';
 
 class ProductCard extends StatelessWidget {
   final Products product;
