@@ -17,13 +17,15 @@ final cartItems=RxList<CartItem>([]);
     } else {
       existingItem.quantity++;
     }
-    update();
+    cartItems.refresh();
+    // update();
   }
 
   // Remove product from cart
   void removeFromCart(Products product) {
     cartItems.removeWhere((item) => item.product.id == product.id);
-    update();
+    cartItems.refresh();
+    // update();
   }
 
   // Update product quantity in cart
@@ -31,7 +33,8 @@ final cartItems=RxList<CartItem>([]);
     if (quantity <= item.product.stock! &&
         quantity >= item.product.minimumOrderQuantity!) {
       item.quantity = quantity;
-      update();
+      cartItems.refresh();
+      // update();
     }
   }
 

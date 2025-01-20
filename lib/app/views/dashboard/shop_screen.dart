@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ezy_shop/app/utils/style.dart';
 import 'package:ezy_shop/app/views/product_card.dart';
 import 'package:flutter/material.dart';
@@ -11,11 +13,17 @@ class ShopScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productController = Get.put(ProductController());
-    productController.fetchProducts();
+
 
     return Scaffold(
       appBar: GFAppBar(
         title: Text("Products"),
+        onChanged: (value) => productController.onSearchChanged(value),
+        onSubmitted: (value) {
+          // log(value);
+          productController.onSearchChanged(value);
+        },
+        searchBar: true,
         actions: <Widget>[
           GFIconButton(
             color: AppColors.primary,
@@ -29,8 +37,8 @@ class ShopScreen extends StatelessWidget {
         ],
       ),
       body: Obx(
-        () => GridView.builder(
-          itemCount: productController.product.value!.products!.length,
+        () =>productController.isLoading.value?GFLoader(): GridView.builder(
+          itemCount: productController.products.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
@@ -38,7 +46,7 @@ class ShopScreen extends StatelessWidget {
             crossAxisCount: 2,
           ),
           itemBuilder: (context, index) {
-            final item = productController.product.value!.products![index];
+            final item = productController.products[index];
             return ProductCard(product: item);
           },
         ),

@@ -1,4 +1,5 @@
 import 'package:ezy_shop/app/models/product_response.dart';
+import 'package:ezy_shop/app/utils/style.dart';
 import 'package:ezy_shop/app/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
@@ -13,7 +14,7 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        showQuantityBottomSheet(context,product);
+    
         // Get.to(() => ProductDetailsScreen(product: product),
         //     transition: rightToLeft);
       },
@@ -40,9 +41,20 @@ class ProductCard extends StatelessWidget {
                     textAlign: TextAlign.start,
                   ),
                   const SizedBox(height: 4),
-                  TextComponent(
-                    'BDT ${product.mrp!.toStringAsFixed(2)}',
-                   // fontSize: k12FontSize,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextComponent(
+                        'BDT ${product.mrp!.toStringAsFixed(2)}',
+                       // fontSize: k12FontSize,
+                      ),
+                      GestureDetector(
+                        onTap: (){
+                            showQuantityBottomSheet(context,product);
+                        },
+                        child: Icon(Icons.add_box,color: AppColors.primary,))
+               
+                    ],
                   ),
                 ],
               ),

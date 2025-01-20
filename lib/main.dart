@@ -1,5 +1,6 @@
 import 'package:ezy_shop/app/utils/style.dart';
 import 'package:ezy_shop/app/views/login_screen.dart';
+import 'package:ezy_shop/app/views/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor:AppColors.primary),
         useMaterial3: true,
       ),
-      home:  LoginScreen(),
+      home:  SplashScreen(),
     );
   }
 }
