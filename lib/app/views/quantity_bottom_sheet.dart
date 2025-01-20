@@ -1,4 +1,5 @@
 import 'package:ezy_shop/app/components/text_component.dart';
+import 'package:ezy_shop/app/models/cart_item.dart';
 import 'package:ezy_shop/app/utils/style.dart';
 import 'package:ezy_shop/app/utils/util.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class QuantityBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     final cartController = Get.put(CartController());
     final RxInt quantity = (product.minimumOrderQuantity ?? 1).obs;
-
+   // var promotionText = getPromotionText(CartItem(product: product, quantity: quantity.value));
     return Container(
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -37,6 +38,13 @@ class QuantityBottomSheet extends StatelessWidget {
           Text(
             'Min Order Quantity: ${product.minimumOrderQuantity}',
             style: TextStyle(fontSize: 16),
+          ),
+          Obx(
+         ()=> Text(
+              'price: ${getPromotionText(CartItem(product: product, quantity: quantity.value)) ??
+                          '৳${product.mrp! * quantity.value}'}',
+              style: TextStyle(fontSize: 16),
+            ),
           ),
           SizedBox(height: 16),
           Row(

@@ -23,12 +23,7 @@ import '../models/cart_item.dart';
                 color: AppColors.kErrorColor,
                 fontWeight: AppFontWeight.titleFontWeight,
               ),
-                 TextComponent(
-            promotion!.title,
-              textAlign: TextAlign.start,
-               color: AppColors.kErrorColor,
-               fontSize: TextSize.k14FontSize,
-            ),
+         
             TextComponent(
             promotion!.description,
               textAlign: TextAlign.start,
