@@ -1,4 +1,5 @@
 import 'package:ezy_shop/app/utils/style.dart';
+import 'package:ezy_shop/app/views/dashboard/cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
@@ -24,7 +25,7 @@ class DashboardScreen extends StatelessWidget {
               ),
             ),
             PersistentTabConfig(
-              screen: Scaffold(),
+              screen: CartScreen(),
               item: ItemConfig(
                   activeForegroundColor: AppColors.primary,
                   icon:  

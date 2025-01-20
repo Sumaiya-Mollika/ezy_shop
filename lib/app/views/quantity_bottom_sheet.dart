@@ -8,13 +8,12 @@ import 'package:getwidget/getwidget.dart';
 
 class QuantityBottomSheet extends StatelessWidget {
   final Products product;
-  QuantityBottomSheet({Key? key, required this.product}) : super(key: key);
+  const QuantityBottomSheet({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
     final CartController cartController = Get.find<CartController>();
-    final RxInt quantity =
-        (product.minimumOrderQuantity ?? 1).obs; // Reactive quantity variable
+    final RxInt quantity = (product.minimumOrderQuantity ?? 1).obs;
 
     return Container(
       padding: EdgeInsets.all(16),
@@ -51,7 +50,7 @@ class QuantityBottomSheet extends StatelessWidget {
                 icon: Icon(Icons.remove),
               ),
               Obx(
-                () => Container(
+                () => SizedBox(
                   width: 80,
                   child: TextField(
                     controller:

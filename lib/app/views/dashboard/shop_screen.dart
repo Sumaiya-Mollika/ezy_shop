@@ -13,7 +13,7 @@ class ShopScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productController = Get.put(ProductController());
-
+    productController.fetchProducts();
 
     return Scaffold(
       appBar: GFAppBar(
@@ -37,19 +37,21 @@ class ShopScreen extends StatelessWidget {
         ],
       ),
       body: Obx(
-        () =>productController.isLoading.value?GFLoader(): GridView.builder(
-          itemCount: productController.products.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-            mainAxisExtent: 240,
-            crossAxisCount: 2,
-          ),
-          itemBuilder: (context, index) {
-            final item = productController.products[index];
-            return ProductCard(product: item);
-          },
-        ),
+        () => productController.isLoading.value
+            ? GFLoader()
+            : GridView.builder(
+                itemCount: productController.products.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  mainAxisExtent: 240,
+                  crossAxisCount: 2,
+                ),
+                itemBuilder: (context, index) {
+                  final item = productController.products[index];
+                  return ProductCard(product: item);
+                },
+              ),
       ),
     );
   }

@@ -5,5 +5,6 @@ final storage = GetStorage();
 class StorageKey{
 static const token="token";
 static const user="user";
+static const cartItems="cartItems";
 
 }

@@ -11,7 +11,7 @@ class ProductController extends GetxController {
   @override
   void onInit() {
     _productService = ProductServices();
-    fetchProducts();
+   // fetchProducts();
     super.onInit();
   }
 

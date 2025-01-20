@@ -1,62 +1,30 @@
-// import 'package:ezy_shop/app/models/cart_item.dart';
-// import 'package:ezy_shop/app/models/product_response.dart';
-// import 'package:get/get.dart';
-
-// class CartController extends GetxController {
-// final cartItems=RxList<CartItem>([]);
-
-//   // Add product to cart
-//   void addToCart(Products product) {
-//     final existingItem = cartItems.firstWhere(
-//       (item) => item.product.id == product.id,
-//       orElse: () => CartItem(product: product, quantity: 0),
-//     );
-
-//     if (existingItem.quantity == 0) {
-//       cartItems.add(CartItem(product: product, quantity: 1));
-//     } else {
-//       existingItem.quantity++;
-//     }
-//     cartItems.refresh();
-//     // update();
-//   }
-
-//   // Remove product from cart
-//   void removeFromCart(Products product) {
-//     cartItems.removeWhere((item) => item.product.id == product.id);
-//     cartItems.refresh();
-//     // update();
-//   }
-
-//   // Update product quantity in cart
-//   void updateQuantity(CartItem item, int quantity) {
-//     if (quantity <= item.product.stock! &&
-//         quantity >= item.product.minimumOrderQuantity!) {
-//       item.quantity = quantity;
-//       cartItems.refresh();
-//       // update();
-//     }
-//   }
-
-//   // Clear cart
-//   void clearCart() {
-//     cartItems.clear();
-//   }
-// }
-
-
-
 
 import 'package:ezy_shop/app/models/cart_item.dart';
 import 'package:ezy_shop/app/models/product_response.dart';
+import 'package:ezy_shop/app/utils/constants.dart';
 import 'package:get/get.dart';
-
 import '../views/quantity_bottom_sheet.dart';
 
 
 class CartController extends GetxController {
   // Reactive list of CartItems
   final RxList<CartItem> cartItems = RxList<CartItem>([]);
+  // @override
+  // void onInit() {
+  //     loadCart();
+  //   super.onInit();
+  
+  // }
+  Future<void> loadCart() async {
+    final savedCart = storage.read<List>(StorageKey.cartItems) ?? [];
+    cartItems.value = savedCart.map((e) => CartItem.fromJson(e)).toList();
+  }
+
+  // Save cart items to GetStorage
+  Future<void> _saveCart() async {
+    final savedCart = cartItems.map((e) => e.toJson()).toList();
+    await storage.write(StorageKey.cartItems, savedCart);
+  }
 
   // Add product to cart
   void addToCart(Products product, int quantity) {
@@ -89,6 +57,7 @@ class CartController extends GetxController {
 
     // Optionally show the bottom sheet for quantity adjustment
     showQuantityBottomSheet(product);
+     _saveCart();
   }
 
   // Show quantity bottom sheet for adjusting product quantity
