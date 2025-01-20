@@ -1,4 +1,3 @@
-
 import 'dart:developer';
 
 import 'package:ezy_shop/app/services/product_services.dart';
@@ -11,58 +10,45 @@ class ProductController extends GetxController {
   @override
   void onInit() {
     _productService = ProductServices();
-   // fetchProducts();
+    fetchProducts();
     super.onInit();
   }
 
-  final allProducts = RxList<Products>([]);
   final products = RxList<Products>([]);
-  // var products = <ProductResponse>[].obs;
-  // final product = Rx<ProductResponse?>(null);
+  final searchQuery = RxString("");
+
   var isLoading = false.obs;
   var errorMessage = ''.obs;
-  final _debounce = Rxn<Function>();
-  // Fetch products by title
+
   Future<void> fetchProducts() async {
-    allProducts.clear();
+   
     products.clear();
     try {
       isLoading.value = true;
       errorMessage.value = '';
-
-      final response = await _productService.products();
+      Map<String, dynamic>? queryParameters = {
+        if (searchQuery.value.isNotEmpty) "title": searchQuery.value
+      };
+      final response = await _productService.products(queryParameters);
 
       if (response.data != null) {
-        allProducts.addAll(response.data!.products!);
+       products.clear();
         products.addAll(response.data!.products!);
       } else {
         errorMessage.value = response.message ?? 'No products found';
       }
     } catch (e) {
-      errorMessage.value = e.toString(); // Capture the error message
+      errorMessage.value = e.toString(); 
     } finally {
-      isLoading.value = false; // Reset loading state
+      isLoading.value = false; 
     }
   }
 
-void onSearchChanged(String query) {
-  log(query);
-  debounce(
-    products, 
-    (_) {
-      if (query.isEmpty) {
-        products.value = allProducts;
-      } else {
-        products.value = allProducts.where((product) {
-          final title = product.title?.toLowerCase() ?? '';
-          return title.contains(query.toLowerCase());
-        }).toList();
-      }
-      products.refresh();
-    },
-    
-    time: const Duration(milliseconds: 500), // Delay
-  );
-}
 
+  void updateSearchQuery(String query) {
+    searchQuery.value = query;
+    fetchProducts();
+  }
+
+ 
 }

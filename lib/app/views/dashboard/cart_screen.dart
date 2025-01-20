@@ -1,6 +1,7 @@
 import 'package:ezy_shop/app/models/cart_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getwidget/getwidget.dart';
 import '../../controllers/cart_controller.dart';
 
 class CartScreen extends StatelessWidget {
@@ -9,9 +10,9 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cartController = Get.put(CartController());
-   // cartController.loadCart();
+    cartController.loadCart();
     return Scaffold(
-      appBar: AppBar(title: Text('Your Cart')),
+      appBar: GFAppBar(title: Text('Your Cart')),
       body: Obx(() {
         if (cartController.cartItems.isEmpty) {
           return Center(child: Text('No items in the cart'));
@@ -25,7 +26,6 @@ class CartScreen extends StatelessWidget {
               subtitle: Text('Qty: ${cartItem.quantity}'),
               trailing: Text('৳${cartItem.product.mrp! * cartItem.quantity}'),
               onTap: () {
-                // Show bottom sheet for quantity update
                 _showQuantityBottomSheet(cartItem);
               },
             );

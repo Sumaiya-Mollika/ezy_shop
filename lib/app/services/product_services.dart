@@ -10,10 +10,10 @@ import '../network/api_client.dart';
 class ProductServices {
   final _dio = ApiClient.dio;
 
-  Future<GenericObjectResponse<ProductResponse>> products() async {
+  Future<GenericObjectResponse<ProductResponse>> products(  Map<String, dynamic>? queryParameters) async {
     try {
       final response = await _dio.get(
-        ProductsEndPoints.productsUrl,
+        ProductsEndPoints.productsUrl,queryParameters:  queryParameters
       );
       log("Response Data: ${response.data}");
       final data = GenericObjectResponse.fromJson(

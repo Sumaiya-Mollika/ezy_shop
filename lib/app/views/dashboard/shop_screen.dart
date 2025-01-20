@@ -13,15 +13,13 @@ class ShopScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productController = Get.put(ProductController());
-    productController.fetchProducts();
 
     return Scaffold(
       appBar: GFAppBar(
         title: Text("Products"),
-        onChanged: (value) => productController.onSearchChanged(value),
+        onChanged: (query) => productController.updateSearchQuery(query),
         onSubmitted: (value) {
-          // log(value);
-          productController.onSearchChanged(value);
+          productController.updateSearchQuery(value);
         },
         searchBar: true,
         actions: <Widget>[
