@@ -1,8 +1,10 @@
 import 'package:ezy_shop/app/utils/style.dart';
 import 'package:ezy_shop/app/views/dashboard/cart_screen.dart';
+import 'package:ezy_shop/app/views/empty_data_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
+import '../../../gen/assets.gen.dart';
 import '../../controllers/bottom_nav_controller.dart';
 import '../../controllers/cart_controller.dart';
 import 'shop_screen.dart';
@@ -29,8 +31,7 @@ class DashboardScreen extends StatelessWidget {
               item: ItemConfig(
                   activeForegroundColor: AppColors.primary,
                   icon:  
-                    // Icon(
-                    //       Icons.shopping_basket,),
+                  
                    Obx(() {
                     return AnimatedSwitcher(
                         duration: Duration(milliseconds: 300),
@@ -61,7 +62,14 @@ class DashboardScreen extends StatelessWidget {
                   title: "Cart"),
             ),
             PersistentTabConfig(
-              screen: Scaffold(),
+              screen: EmptyDataScreen(
+              imageUrl: Assets.images.basket.path,
+              title: "You don’t have any order yet.",
+              buttonText: "Shop Now",
+              onTap: () {
+                controller.persistentTabController.jumpToTab(0);
+              },
+            ),
               item: ItemConfig(
                 activeForegroundColor: AppColors.primary,
                 icon: Icon(Icons.shopping_bag),

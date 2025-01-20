@@ -1,195 +1,149 @@
-// import 'dart:developer';
+import 'package:ezy_shop/app/components/text_component.dart';
+import 'package:ezy_shop/app/models/product_response.dart';
+import 'package:ezy_shop/app/utils/style.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:photo_view/photo_view.dart';
 
-// import 'package:ezy_shop/app/controllers/cart_controller.dart';
-// import 'package:ezy_shop/app/models/cart_item.dart';
-// import 'package:ezy_shop/app/models/product_response.dart';
-// import 'package:ezy_shop/app/utils/style.dart';
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
 
-// void showQuantityBottomSheet(BuildContext context, Products product) {
-//   final cartController = Get.put(CartController());
-//   final selectedQuantity = RxInt(1); // Reactive variable
-//   final minQuantity = product.minimumOrderQuantity ?? 1;
-//   final maxQuantity = product.stock ?? 0;
 
-//   // Calculate bottom sheet height based on screen size
-//   final bottomSheetHeight = MediaQuery.of(context).size.height * 0.6;
+  Widget getPromotion(
+    Promotion? promotion
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      spacing: 10,
+      children: [
+        TextComponent(
+                "Promotion",
+                textAlign: TextAlign.start,
+                color: AppColors.kErrorColor,
+                fontWeight: AppFontWeight.titleFontWeight,
+              ),
+                 TextComponent(
+            promotion!.title,
+              textAlign: TextAlign.start,
+               color: AppColors.kErrorColor,
+               fontSize: TextSize.k14FontSize,
+            ),
+            TextComponent(
+            promotion!.description,
+              textAlign: TextAlign.start,
+              color: AppColors.kErrorColor,
+               fontSize: TextSize.k14FontSize,
+            ),
+      ],
+    );
+  }
 
-//   Get.bottomSheet(
-//     Container(
-//       padding: const EdgeInsets.all(16),
-//       height: bottomSheetHeight,
-//       child: SingleChildScrollView(
-//         child: _buildBottomSheetContent(
-//           context,
-//           product,
-//           selectedQuantity,
-//           minQuantity,
-//           maxQuantity,
-//           cartController,
-//         ),
-//       ),
-//     ),
-//   );
-// }
 
-// Widget _buildBottomSheetContent(
-//   BuildContext context,
-//   Products product,
-//   RxInt selectedQuantity,
-//   int minQuantity,
-//   int maxQuantity,
-//   CartController cartController,
-// ) {
-//   return Container(
-//     padding: const EdgeInsets.all(16),
-//     color: AppColors.scaffoldBackgroundLight,
-//     child: Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         _buildProductTitle(product, context),
-//         const SizedBox(height: 16),
-//         if (product.promotion != null) _buildPromotionText(product),
-//         const SizedBox(height: 16),
-//         _buildPriceText(product, context),
-//         const SizedBox(height: 16),
-//         _buildQuantitySelection(
-//           selectedQuantity,
-//           minQuantity,
-//           maxQuantity,
-//           cartController,
-//           product,
-//         ),
-//         const SizedBox(height: 16),
-//         _buildAddToCartButton(cartController, product, selectedQuantity.value),
-//       ],
-//     ),
-//   );
-// }
+void showImageDialog(BuildContext context, String title, String imageUrl) {
+  final screenWidth = MediaQuery.of(context).size.width;
+  final screenHeight = MediaQuery.of(context).size.height;
 
-// Widget _buildProductTitle(Products product, BuildContext context) {
-//   return Text(product.title ?? "Product");
-// }
+  Get.dialog(
+     _AnimatedDialog(
+      title: title,
+      imageUrl: imageUrl,
+      width: screenWidth,
+      height: screenHeight * 0.6,
+    ),
+  );
+}
 
-// Widget _buildPromotionText(Products product) {
-//   return Text(
-//     "Promo: ${product.promotion?.title ?? 'No Promotion'}",
-//     style: const TextStyle(color: Colors.red),
-//   );
-// }
+class _AnimatedDialog extends StatefulWidget {
+  final String title;
+  final String imageUrl;
+  final double width;
+  final double height;
 
-// Widget _buildPriceText(Products product, BuildContext context) {
-//   return Text("Price: BDT ${product.mrp!.toStringAsFixed(2)}");
-// }
+  const _AnimatedDialog({
+    required this.title,
+    required this.imageUrl,
+    required this.width,
+    required this.height,
+    Key? key,
+  }) : super(key: key);
 
-// Widget _buildQuantitySelection(
-//   RxInt selectedQuantity,
-//   int minQuantity,
-//   int maxQuantity,
-//   CartController cartController,
-//   Products product,
-// ) {
-//   return Row(
-//     children: [
-//       _buildDecrementButton(
-//           selectedQuantity, minQuantity, cartController, product),
-//       _buildQuantityTextField(selectedQuantity, minQuantity, maxQuantity),
-//       _buildIncrementButton(
-//           selectedQuantity, maxQuantity, cartController, product),
-//     ],
-//   );
-// }
+  @override
+  State<_AnimatedDialog> createState() => _AnimatedDialogState();
+}
 
-// Widget _buildDecrementButton(
-//   RxInt selectedQuantity,
-//   int minQuantity,
-//   CartController cartController,
-//   Products product,
-// ) {
-//   return IconButton(
-//     icon: const Icon(Icons.remove),
-//     onPressed: () {
-//       if (selectedQuantity.value > minQuantity) {
-//         selectedQuantity.value--;
-//         cartController.updateQuantity(
-//           CartItem(product: product, quantity: selectedQuantity.value),
-//           selectedQuantity.value,
-//         );
-//       }
-//     },
-//   );
-// }
+class _AnimatedDialogState extends State<_AnimatedDialog>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+  late final Animation<double> _scaleAnimation;
 
-// Widget _buildIncrementButton(
-//   RxInt selectedQuantity,
-//   int maxQuantity,
-//   CartController cartController,
-//   Products product,
-// ) {
-//   return IconButton(
-//     icon: const Icon(Icons.add),
-//     onPressed: () {
-//       if (selectedQuantity.value < maxQuantity) {
-//         selectedQuantity.value++;
-//         cartController.updateQuantity(
-//           CartItem(product: product, quantity: selectedQuantity.value),
-//           selectedQuantity.value,
-//         );
-//       }
-//     },
-//   );
-// }
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 600),
+      reverseDuration: const Duration(milliseconds: 600),
+      vsync: this,
+    );
+    _scaleAnimation = CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeInOut,
+      reverseCurve: Curves.easeInOut
+    );
+    _controller.forward();
+  }
 
-// Widget _buildQuantityTextField(
-//   RxInt selectedQuantity,
-//   int minQuantity,
-//   int maxQuantity,
-// ) {
-//   final controller =
-//       TextEditingController(text: selectedQuantity.value.toString());
+  Future<void> _closeDialog() async {
+    await _controller.reverse();
+   Get.back();
+    
+  }
 
-//   return Expanded(
-//     child: Obx(
-//       () {
-//         if (controller.text != selectedQuantity.value.toString()) {
-//           controller.text = selectedQuantity.value.toString();
-//           controller.selection = TextSelection.fromPosition(
-//             TextPosition(offset: controller.text.length),
-//           );
-//         }
-//         log(minQuantity.toString());
-//         log(maxQuantity.toString());
-//         return TextField(
-//           keyboardType: TextInputType.number,
-//           controller: controller,
-//           onChanged: (value) {
-//             final quantity = int.tryParse(value);
-//             if (quantity != null &&
-//                 quantity >= minQuantity &&
-//                 quantity <= maxQuantity) {
-//               selectedQuantity.value = quantity;
-//             }
-//           },
-//           decoration: const InputDecoration(labelText: "Quantity"),
-//         );
-//       },
-//     ),
-//   );
-// }
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
-// Widget _buildAddToCartButton(
-//   CartController cartController,
-//   Products product,
-//   int selectedQuantity,
-// ) {
-//   return ElevatedButton(
-//     onPressed: () {
-//       cartController.addToCart(
-//         product,
-//       );
-//       Get.back(); // Close the bottom sheet
-//     },
-//     child: const Text('Add to Cart'),
-//   );
-// }
+  @override
+  Widget build(BuildContext context) {
+    return ScaleTransition(
+      scale: _scaleAnimation,
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          margin: EdgeInsets.symmetric(vertical: 100,horizontal: 20),
+               color: AppColors.kWhiteColor ,
+          
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+          
+            spacing: 10,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: GestureDetector(
+                    onTap: (){
+                  _closeDialog();
+                    },
+                    child: Icon(Icons.cancel_rounded)),
+                ),
+              ),
+                TextComponent(widget.title,color: AppColors.primary,fontSize: TextSize.titleFontSize,),
+              Container(
+                color: AppColors.kWhiteColor,
+            
+                height: widget.height*.6,
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: PhotoView(
+                  backgroundDecoration: const BoxDecoration(
+                    color: AppColors.kWhiteColor,
+                  ),
+                  imageProvider: NetworkImage(widget.imageUrl),
+                ),
+              ),
+            ],
+          ),
+        ),
+     // ),
+    );
+  }
+}

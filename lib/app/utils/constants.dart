@@ -8,3 +8,8 @@ static const user="user";
 static const cartItems="cartItems";
 
 }
+class CurrencySign {
+  static const appCurrency = "৳";
+  static const usd = "\$";
+
+}

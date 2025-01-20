@@ -116,6 +116,7 @@ int _applyQuantityLimit(CartItem item) {
   // Remove product from the cart
   void removeFromCart(CartItem cartItem) {
     cartItems.remove(cartItem);
+     _saveCart();
   }
 
   // Calculate total price of the cart

@@ -1,5 +1,6 @@
 import 'package:ezy_shop/app/components/text_component.dart';
 import 'package:ezy_shop/app/utils/style.dart';
+import 'package:ezy_shop/app/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ezy_shop/app/controllers/cart_controller.dart';
@@ -79,6 +80,7 @@ class QuantityBottomSheet extends StatelessWidget {
             ],
           ),
           SizedBox(height: 16),
+          if (product.promotion != null) getPromotion(product.promotion),
           GFButton(
             color: AppColors.primary,
             onPressed: () {

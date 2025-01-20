@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:ezy_shop/app/utils/style.dart';
 import 'package:ezy_shop/app/views/product_card.dart';
@@ -22,17 +21,7 @@ class ShopScreen extends StatelessWidget {
           productController.updateSearchQuery(value);
         },
         searchBar: true,
-        actions: <Widget>[
-          GFIconButton(
-            color: AppColors.primary,
-            icon: Icon(
-              Icons.notifications,
-              color: Colors.white,
-            ),
-            onPressed: () {},
-            type: GFButtonType.transparent,
-          ),
-        ],
+  
       ),
       body: Obx(
         () => productController.isLoading.value
