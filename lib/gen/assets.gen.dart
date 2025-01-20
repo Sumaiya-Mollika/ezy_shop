@@ -16,8 +16,12 @@ class $AssetsImagesGen {
   AssetGenImage get background =>
       const AssetGenImage('assets/images/background.webp');
 
+  /// File path: assets/images/grocery-bag.webp
+  AssetGenImage get groceryBag =>
+      const AssetGenImage('assets/images/grocery-bag.webp');
+
   /// List of all assets
-  List<AssetGenImage> get values => [background];
+  List<AssetGenImage> get values => [background, groceryBag];
 }
 
 class Assets {

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
-
 import '../../gen/assets.gen.dart';
 import '../utils/constants.dart';
 import 'dashboard/dashboard_screen.dart';
@@ -29,8 +28,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> startTime() async {
     await Future.delayed(const Duration(milliseconds: 2000));
-
-    // Ensure the widget is still mounted
     if (!mounted) return;
 
     try {
@@ -43,11 +40,11 @@ class _SplashScreenState extends State<SplashScreen> {
           withNavBar: true,
         );
       } else {
-        Get.offAll(() =>  LoginScreen(), transition: Transition.rightToLeft);
+        Get.offAll(() => LoginScreen(), transition: Transition.rightToLeft);
       }
     } catch (e) {
       if (mounted) {
-        Get.offAll(() =>  LoginScreen(), transition: Transition.rightToLeft);
+        Get.offAll(() => LoginScreen(), transition: Transition.rightToLeft);
       }
     }
   }
@@ -57,7 +54,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: Center(
         child: Image.asset(
-          Assets.images.background.path,
+          Assets.images.groceryBag.path,
         ),
       ),
     );
