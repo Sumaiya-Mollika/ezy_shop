@@ -1,18 +1,15 @@
+import 'package:ezy_shop/app/components/app_button.dart';
 import 'package:ezy_shop/app/components/text_component.dart';
 import 'package:ezy_shop/app/components/text_field_component.dart';
 import 'package:ezy_shop/app/controllers/auth_controller.dart';
 import 'package:ezy_shop/app/utils/style.dart';
-import 'package:ezy_shop/app/views/dashboard/dashboard_screen.dart';
 import 'package:ezy_shop/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class LoginScreen extends StatelessWidget {
   final authController = Get.put(AuthController());
-  // final TextEditingController identifierController = TextEditingController();
-  // final TextEditingController passwordController = TextEditingController();
 
   LoginScreen({super.key});
 
@@ -22,7 +19,6 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          // Background image
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
@@ -31,7 +27,6 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
           ),
-          // Login form
           Center(
             child: SingleChildScrollView(
               padding: EdgeInsets.all(16.0),
@@ -60,13 +55,12 @@ class LoginScreen extends StatelessWidget {
                   ),
                   Obx(() {
                     return authController.isLoading.value
-                        ? GFLoader()
-                        : GFButton(
-                            onPressed: () {
+                        ? GFLoader(type: GFLoaderType.square,)
+                        : AppButton(
+                            buttonText: "Login",
+                            onButtonPress:authController.userName.isNotEmpty&&authController.password.isNotEmpty? () {
                               authController.signInUser(context);
-                            },
-                            text: "Login",
-                            color: AppColors.primary,
+                            }:null,
                           );
                   }),
                 ],
@@ -78,3 +72,4 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
+

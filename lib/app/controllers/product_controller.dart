@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:ezy_shop/app/services/product_services.dart';
 import 'package:get/get.dart';

@@ -1,12 +1,10 @@
-import 'package:ezy_shop/app/components/text_component.dart';
 import 'package:ezy_shop/app/models/cart_item.dart';
-import 'package:ezy_shop/app/utils/style.dart';
 import 'package:ezy_shop/app/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ezy_shop/app/controllers/cart_controller.dart';
 import 'package:ezy_shop/app/models/product_response.dart';
-import 'package:getwidget/getwidget.dart';
+import '../../components/app_button.dart';
 
 class QuantityBottomSheet extends StatelessWidget {
   final Products product;
@@ -16,7 +14,6 @@ class QuantityBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     final cartController = Get.put(CartController());
     final RxInt quantity = (product.minimumOrderQuantity ?? 1).obs;
-    // var promotionText = getPromotionText(CartItem(product: product, quantity: quantity.value));
     return Container(
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -99,20 +96,15 @@ class QuantityBottomSheet extends StatelessWidget {
           ),
           SizedBox(height: 16),
           if (product.promotion != null) getPromotion(product.promotion),
-          GFButton(
-            color: AppColors.primary,
-            onPressed: quantity.value != 0
+          AppButton(
+            buttonText: "Add to Cart",
+            onButtonPress: quantity.value != 0
                 ? () {
                     cartController.addToCart(product, quantity.value);
                     Get.back();
                   }
                 : null,
-            child: TextComponent(
-              'Add to Cart',
-              fontSize: TextSize.k14FontSize,
-              color: AppColors.kWhiteColor,
-            ),
-          )
+          ),
         ],
       ),
     );

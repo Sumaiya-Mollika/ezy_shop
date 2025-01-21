@@ -36,7 +36,7 @@ class TextFieldComponent extends StatefulWidget {
     this.font = AppFont.primaryFont,
     this.fontWeight = AppFontWeight.mediumFontWeight,
     this.textFontColor = AppColors.kTextColor,
-    this.prefixIconColor = AppColors.primaryColor,
+    this.prefixIconColor = AppColors.primary,
     this.textInputAction = TextInputAction.done,
     this.isRemoveBottomBorder = true,
     this.inputDecorationBorder,
@@ -107,7 +107,7 @@ class _TextFieldComponentState extends State<TextFieldComponent> {
                       _fieldVisibility
                           ? Icons.visibility_off
                           : Icons.visibility,
-                      color: AppColors.lightPrimaryColor))
+                      color: AppColors.primary))
               : null,
         ),
       ),

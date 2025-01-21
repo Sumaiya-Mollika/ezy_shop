@@ -54,8 +54,7 @@ class _AnimatedDialog extends StatefulWidget {
     required this.imageUrl,
     required this.width,
     required this.height,
-    Key? key,
-  }) : super(key: key);
+  });
 
   @override
   State<_AnimatedDialog> createState() => _AnimatedDialogState();

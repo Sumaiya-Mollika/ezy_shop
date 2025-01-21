@@ -172,7 +172,7 @@ class PromotionDetails {
   String? uid;
   String? discountType;
   num? amount;
-  Null? percentage;
+  Null percentage;
   num? ruleWeight;
   num? minWeight;
   num? maxWeight;

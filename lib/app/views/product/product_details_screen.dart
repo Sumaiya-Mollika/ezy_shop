@@ -1,3 +1,4 @@
+import 'package:ezy_shop/app/components/app_button.dart';
 import 'package:ezy_shop/app/models/product_response.dart';
 import 'package:ezy_shop/app/utils/style.dart';
 import 'package:ezy_shop/app/utils/util.dart';
@@ -107,15 +108,11 @@ class ProductDetailsScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  GFButton(
-                    color: AppColors.primary,
-                    onPressed: () {
+                  AppButton(
+                    buttonText: "Buy",
+                    onButtonPress: () {
                       cartController.showQuantityBottomSheet(product!);
                     },
-                    child: TextComponent(
-                      "Buy",
-                      color: AppColors.kWhiteColor,
-                    ),
                   )
                 ],
               ),

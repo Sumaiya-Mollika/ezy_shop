@@ -1,7 +1,6 @@
 import 'package:ezy_shop/app/controllers/cart_controller.dart';
 import 'package:ezy_shop/app/models/product_response.dart';
 import 'package:ezy_shop/app/utils/style.dart';
-import 'package:ezy_shop/app/utils/util.dart';
 import 'package:ezy_shop/app/views/product/product_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

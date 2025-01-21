@@ -1,4 +1,4 @@
-import 'package:ezy_shop/app/utils/style.dart';
+import 'package:ezy_shop/app/components/app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
 import '../components/text_component.dart';
@@ -27,13 +27,9 @@ class EmptyDataScreen extends StatelessWidget {
             TextComponent(
               title,
             ),
-            GFButton(
-              color: AppColors.primary,
-              onPressed: onTap,
-              child: TextComponent(
-                buttonText,
-                color: AppColors.kWhiteColor,
-              ),
+            AppButton(
+              buttonText: buttonText,
+              onButtonPress: onTap,
             )
           ],
         ),

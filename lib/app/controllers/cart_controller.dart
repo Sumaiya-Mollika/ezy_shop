@@ -3,7 +3,7 @@ import 'package:ezy_shop/app/models/product_response.dart';
 import 'package:ezy_shop/app/utils/constants.dart';
 import 'package:ezy_shop/app/utils/style.dart';
 import 'package:get/get.dart';
-import '../views/quantity_bottom_sheet.dart';
+import '../views/product/quantity_bottom_sheet.dart';
 
 class CartController extends GetxController {
   final RxList<CartItem> cartItems = RxList<CartItem>([]);
