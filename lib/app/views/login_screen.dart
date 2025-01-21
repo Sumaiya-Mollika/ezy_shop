@@ -55,7 +55,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                   Obx(() {
                     return authController.isLoading.value
-                        ? GFLoader(type: GFLoaderType.square,)
+                        ? GFLoader()
                         : AppButton(
                             buttonText: "Login",
                             onButtonPress:authController.userName.isNotEmpty&&authController.password.isNotEmpty? () {
