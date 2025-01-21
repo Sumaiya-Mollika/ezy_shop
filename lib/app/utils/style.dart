@@ -23,7 +23,7 @@ class TextSize {
 }
 
 class AppColors {
-   static const Color primary = Color(0xFF4CAF50); 
+  static const Color primary = Color(0xFF4CAF50);
   static const kTextColor = Color(0xFF113b69);
   static const kDisabledTextColor = Color(0xFF485668);
   static const kGrayColor = Color(0xFF9E9E9E);

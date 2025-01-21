@@ -24,7 +24,7 @@ class ProductDetailsScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: Column(
             spacing: 10,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,7 +39,8 @@ class ProductDetailsScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: GestureDetector(
                         onTap: () {
-                          showImageDialog(context, product!.title!, item.image!);
+                          showImageDialog(
+                              context, product!.title!, item.image!);
                         },
                         child: ClipRRect(
                           borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -67,7 +68,6 @@ class ProductDetailsScreen extends StatelessWidget {
                   ),
                 ],
               ),
-        
               Row(
                 children: [
                   TextComponent(
@@ -97,10 +97,10 @@ class ProductDetailsScreen extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                         TextComponent(
-                    "Price: ",
-                    textAlign: TextAlign.start,
-                  ),
+                      TextComponent(
+                        "Price: ",
+                        textAlign: TextAlign.start,
+                      ),
                       TextComponent(
                         "${CurrencySign.appCurrency} ${product!.mrp}",
                         textAlign: TextAlign.start,
@@ -119,11 +119,7 @@ class ProductDetailsScreen extends StatelessWidget {
                   )
                 ],
               ),
-        
-            if(product!.promotion!=null)  getPromotion(product!.promotion!),
-        
-        
-         
+              if (product!.promotion != null) getPromotion(product!.promotion!),
             ],
           ),
         ),

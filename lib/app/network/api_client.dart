@@ -11,10 +11,9 @@ class ApiClient {
     if (_dio == null) {
       _dio = Dio();
       _dio!.options = BaseOptions(
-        baseUrl: getBaseUrl(),
-        contentType: "application/json",
-        responseType: ResponseType.json
-      );
+          baseUrl: getBaseUrl(),
+          contentType: "application/json",
+          responseType: ResponseType.json);
       _dio!.interceptors.add(InterceptorsWrapper(
         onRequest: (options, handler) async {
           final token = await storage.read(StorageKey.token);

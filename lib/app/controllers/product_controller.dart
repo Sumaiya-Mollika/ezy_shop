@@ -21,7 +21,6 @@ class ProductController extends GetxController {
   var errorMessage = ''.obs;
 
   Future<void> fetchProducts() async {
-   
     products.clear();
     try {
       isLoading.value = true;
@@ -32,23 +31,20 @@ class ProductController extends GetxController {
       final response = await _productService.products(queryParameters);
 
       if (response.data != null) {
-       products.clear();
+        products.clear();
         products.addAll(response.data!.products!);
       } else {
         errorMessage.value = response.message ?? 'No products found';
       }
     } catch (e) {
-      errorMessage.value = e.toString(); 
+      errorMessage.value = e.toString();
     } finally {
-      isLoading.value = false; 
+      isLoading.value = false;
     }
   }
-
 
   void updateSearchQuery(String query) {
     searchQuery.value = query;
     fetchProducts();
   }
-
- 
 }

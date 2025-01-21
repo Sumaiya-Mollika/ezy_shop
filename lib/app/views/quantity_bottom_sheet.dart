@@ -16,7 +16,7 @@ class QuantityBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     final cartController = Get.put(CartController());
     final RxInt quantity = (product.minimumOrderQuantity ?? 1).obs;
-   // var promotionText = getPromotionText(CartItem(product: product, quantity: quantity.value));
+    // var promotionText = getPromotionText(CartItem(product: product, quantity: quantity.value));
     return Container(
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -40,9 +40,8 @@ class QuantityBottomSheet extends StatelessWidget {
             style: TextStyle(fontSize: 16),
           ),
           Obx(
-         ()=> Text(
-              'price: ${getPromotionText(CartItem(product: product, quantity: quantity.value)) ??
-                          '৳${product.mrp! * quantity.value}'}',
+            () => Text(
+              'price: ${getPromotionText(CartItem(product: product, quantity: quantity.value)) ?? '৳${product.mrp! * quantity.value}'}',
               style: TextStyle(fontSize: 16),
             ),
           ),
@@ -102,10 +101,12 @@ class QuantityBottomSheet extends StatelessWidget {
           if (product.promotion != null) getPromotion(product.promotion),
           GFButton(
             color: AppColors.primary,
-            onPressed:quantity.value!=0? () {
-              cartController.addToCart(product, quantity.value);
-              Get.back();
-            }:null,
+            onPressed: quantity.value != 0
+                ? () {
+                    cartController.addToCart(product, quantity.value);
+                    Get.back();
+                  }
+                : null,
             child: TextComponent(
               'Add to Cart',
               fontSize: TextSize.k14FontSize,

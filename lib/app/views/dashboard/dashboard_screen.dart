@@ -16,7 +16,7 @@ class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(BottomNavBarController());
-  final cartController = Get.put(CartController());
+    final cartController = Get.put(CartController());
     return GetBuilder<BottomNavBarController>(
       builder: (controller) {
         return PersistentTabView(
@@ -33,46 +33,39 @@ class DashboardScreen extends StatelessWidget {
               screen: CartScreen(),
               item: ItemConfig(
                   activeForegroundColor: AppColors.primary,
-                  icon:  
-                  
-                   Obx(() {
+                  icon: Obx(() {
                     return AnimatedSwitcher(
-                        duration: Duration(milliseconds: 300),
-                        transitionBuilder: (child, animation) {
-                          return ScaleTransition(
-                              scale: animation, child: child);
-                        },
-                        child:
-                             cartController.cartItems.isEmpty
-                                ?
-                            Icon(
-                          Icons.shopping_basket,
-
-                          key: ValueKey('iconWithoutBadge'),
-                        )
-                        : Badge.count(
-                            textColor: AppColors.kWhiteColor,
-                            backgroundColor: AppColors.primary,
-                            count: cartController.cartItems.length,
-                            key: ValueKey('iconWithBadge'),
-                            child: Icon(
+                      duration: Duration(milliseconds: 300),
+                      transitionBuilder: (child, animation) {
+                        return ScaleTransition(scale: animation, child: child);
+                      },
+                      child: cartController.cartItems.isEmpty
+                          ? Icon(
                               Icons.shopping_basket,
-                              
+                              key: ValueKey('iconWithoutBadge'),
+                            )
+                          : Badge.count(
+                              textColor: AppColors.kWhiteColor,
+                              backgroundColor: AppColors.primary,
+                              count: cartController.cartItems.length,
+                              key: ValueKey('iconWithBadge'),
+                              child: Icon(
+                                Icons.shopping_basket,
+                              ),
                             ),
-                          ),
-                        );
+                    );
                   }),
                   title: "Cart"),
             ),
             PersistentTabConfig(
               screen: EmptyDataScreen(
-              imageUrl: Assets.images.basket.path,
-              title: "You don’t have any order yet.",
-              buttonText: "Shop Now",
-              onTap: () {
-                controller.persistentTabController.jumpToTab(0);
-              },
-            ),
+                imageUrl: Assets.images.basket.path,
+                title: "You don’t have any order yet.",
+                buttonText: "Shop Now",
+                onTap: () {
+                  controller.persistentTabController.jumpToTab(0);
+                },
+              ),
               item: ItemConfig(
                 activeForegroundColor: AppColors.primary,
                 icon: Icon(Icons.shopping_bag),
@@ -80,8 +73,7 @@ class DashboardScreen extends StatelessWidget {
               ),
             ),
             PersistentTabConfig(
-               screen: ProfileScreen(),
-              
+              screen: ProfileScreen(),
               item: ItemConfig(
                 activeForegroundColor: AppColors.primary,
                 icon: Icon(Icons.person),

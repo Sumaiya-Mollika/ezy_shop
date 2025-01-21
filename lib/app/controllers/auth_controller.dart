@@ -21,7 +21,7 @@ class AuthController extends GetxController {
   var isLoading = RxBool(false);
   final userName = RxString("");
   final password = RxString("");
-final user=Rx<User?>(null);
+  final user = Rx<User?>(null);
   void signInUser(BuildContext context) async {
     if (userName.value.isEmpty || password.value.isEmpty) {
       Get.snackbar('Error', 'Username and password cannot be empty',
@@ -55,13 +55,12 @@ final user=Rx<User?>(null);
     }
   }
 
-getUser() {
-  var userData = storage.read(StorageKey.user); 
-  if (userData != null) {
-    user.value = User.fromJson(userData); 
-  } else {
-    user.value = null;
+  getUser() {
+    var userData = storage.read(StorageKey.user);
+    if (userData != null) {
+      user.value = User.fromJson(userData);
+    } else {
+      user.value = null;
+    }
   }
-}
-
 }

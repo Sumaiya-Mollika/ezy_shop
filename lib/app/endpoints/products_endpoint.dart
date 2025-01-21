@@ -1,5 +1,3 @@
- 
-
 class ProductsEndPoints {
-  static const productsUrl='/products';
+  static const productsUrl = '/products';
 }

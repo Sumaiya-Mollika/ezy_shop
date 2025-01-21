@@ -84,9 +84,9 @@ class _TextFieldComponentState extends State<TextFieldComponent> {
         decoration: InputDecoration(
           filled: true,
           fillColor: AppColors.kWhiteColor,
-           border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8.0),
+          ),
           hintText: widget.hint ?? "",
           hintStyle: const TextStyle(
             color: AppColors.hintColor,

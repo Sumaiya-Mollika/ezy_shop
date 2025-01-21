@@ -26,13 +26,17 @@ class ProductCard extends StatelessWidget {
                 builder: (context) => ProductDetailsScreen(product: product)));
       },
       child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15),),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
         elevation: 5,
         child: Column(
           children: [
             Expanded(
               child: GFImageOverlay(
-               borderRadius: BorderRadius.only(topLeft: Radius.circular(15),topRight: Radius.circular(15)),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(15),
+                    topRight: Radius.circular(15)),
                 image: NetworkImage(product.prouductImages!.first.image!),
               ),
             ),

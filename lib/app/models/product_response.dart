@@ -61,7 +61,7 @@ class Products {
     weightUnit = json['weightUnit'];
     minimumOrderQuantity = json['minimumOrderQuantity'];
     mrp = json['mrp'];
-    
+
     stock = json['stock'];
     if (json['prouductImages'] != null) {
       prouductImages = <ProuductImages>[];
@@ -86,8 +86,7 @@ class Products {
     data['mrp'] = mrp;
     data['stock'] = stock;
     if (prouductImages != null) {
-      data['prouductImages'] =
-          prouductImages!.map((v) => v.toJson()).toList();
+      data['prouductImages'] = prouductImages!.map((v) => v.toJson()).toList();
     }
     if (promotion != null) {
       data['promotion'] = promotion!.toJson();
@@ -248,11 +247,8 @@ class DiscountProduct {
     data['id'] = id;
     data['title'] = title;
     if (productImages != null) {
-      data['productImages'] =
-          productImages!.map((v) => v.toJson()).toList();
+      data['productImages'] = productImages!.map((v) => v.toJson()).toList();
     }
     return data;
   }
-
-
 }

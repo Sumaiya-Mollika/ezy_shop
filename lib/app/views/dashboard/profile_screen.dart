@@ -26,12 +26,12 @@ class ProfileScreen extends StatelessWidget {
             subTitle: Text(authController.user.value!.phone!),
           ),
           GFListTile(
-            onTap: () async{
-               await storage.remove(StorageKey.token);
-                    Get.offAll(() => LoginScreen(),
-                        transition: Transition.rightToLeft);
-            },
-             color: AppColors.primary.withValues(alpha: 0.2),
+              onTap: () async {
+                await storage.remove(StorageKey.token);
+                Get.offAll(() => LoginScreen(),
+                    transition: Transition.rightToLeft);
+              },
+              color: AppColors.primary.withValues(alpha: 0.2),
               title: TextComponent("Logout"),
               icon: Padding(
                 padding: const EdgeInsets.all(8.0),

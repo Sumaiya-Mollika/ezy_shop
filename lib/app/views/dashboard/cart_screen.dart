@@ -88,7 +88,7 @@ class CartScreen extends StatelessWidget {
                     ),
                   ),
                   if (cartItem.product.promotion != null &&
-                      cartItem.product.promotion!.type == PromotionType.gwp&&
+                      cartItem.product.promotion!.type == PromotionType.gwp &&
                       promotionText != null)
                     GFListTile(
                       avatar: GFAvatar(

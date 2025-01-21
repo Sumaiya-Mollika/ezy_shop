@@ -1,20 +1,19 @@
- import 'package:get_storage/get_storage.dart';
+import 'package:get_storage/get_storage.dart';
 
 final storage = GetStorage();
 
-class StorageKey{
-static const token="token";
-static const user="user";
-static const cartItems="cartItems";
-
+class StorageKey {
+  static const token = "token";
+  static const user = "user";
+  static const cartItems = "cartItems";
 }
+
 class CurrencySign {
   static const appCurrency = "৳";
   static const usd = "\$";
-
 }
 
-class PromotionType{
-  static const weight ="WEIGHT";
-  static const gwp ="GWP";
+class PromotionType {
+  static const weight = "WEIGHT";
+  static const gwp = "GWP";
 }

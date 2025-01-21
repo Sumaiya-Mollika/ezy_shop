@@ -12,7 +12,8 @@ class AuthServices {
   Future<GenericObjectResponse<UserData>> signIn(
       Map<String, dynamic> request) async {
     try {
-      final response = await _dio.post(AuthEndPoints.signInUrl(), data: request);
+      final response =
+          await _dio.post(AuthEndPoints.signInUrl(), data: request);
       //   final jsonResponse = jsonDecode(response.data);
       return GenericObjectResponse.fromJson(
           response.data, (data) => UserData.fromJson(data));

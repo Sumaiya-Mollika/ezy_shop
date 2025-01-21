@@ -47,30 +47,26 @@ class LoginScreen extends StatelessWidget {
                   ),
                   TextFieldComponent(
                     onChanged: (String? identifier) {
-                      authController.userName.value=identifier!
-                      ;
+                      authController.userName.value = identifier!;
                     },
-
-
                     hint: 'UserName',
                   ),
                   TextFieldComponent(
                     onChanged: (String? password) {
-                      authController.password.value=password!;
+                      authController.password.value = password!;
                     },
                     hint: 'Password',
                     isPasswordField: true,
                   ),
                   Obx(() {
                     return authController.isLoading.value
-                        ?  GFLoader()
+                        ? GFLoader()
                         : GFButton(
                             onPressed: () {
                               authController.signInUser(context);
-                
                             },
                             text: "Login",
-                           color: AppColors.primary,
+                            color: AppColors.primary,
                           );
                   }),
                 ],
