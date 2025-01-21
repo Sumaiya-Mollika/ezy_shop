@@ -2,6 +2,7 @@ import 'package:ezy_shop/app/views/product/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
+import '../../components/product_shimmer.dart';
 import '../../controllers/product_controller.dart';
 
 class ShopScreen extends StatelessWidget {
@@ -22,7 +23,7 @@ class ShopScreen extends StatelessWidget {
       ),
       body: Obx(
         () => productController.isLoading.value
-            ? GFLoader()
+            ? ProductShimmer()
             : GridView.builder(
                 itemCount: productController.products.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

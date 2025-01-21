@@ -46,15 +46,29 @@ class ProductCard extends StatelessWidget {
                 children: [
                   TextComponent(
                     product.title!,
-                    // fontWeight: titleFontWeight,
-                    // fontSize: k14FontSize,
+                  
                     textAlign: TextAlign.start,
                   ),
-                  const SizedBox(height: 4),
+                       Row(
+                children: [
+                  TextComponent(
+                    "Weight: ",
+                     fontSize: TextSize.textSmallFontSize,
+                    textAlign: TextAlign.start,
+                  ),
+                  TextComponent(
+                    "${product.weight} ${product.weightUnit}",
+                    fontSize: TextSize.textSmallFontSize
+                    ,
+                    textAlign: TextAlign.start,
+                  ),
+                ],
+              ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TextComponent(
+                         fontSize: TextSize.textSmallFontSize,
                         '${CurrencySign.appCurrency} ${product.mrp!.toStringAsFixed(2)}',
                       ),
                       GestureDetector(
