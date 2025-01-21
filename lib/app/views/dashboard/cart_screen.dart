@@ -132,6 +132,7 @@ class CartScreen extends StatelessWidget {
         Obx(
           () => cartController.cartItems.isNotEmpty
               ? Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
