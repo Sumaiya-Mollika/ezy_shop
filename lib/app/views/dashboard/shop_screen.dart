@@ -1,4 +1,6 @@
+import 'package:ezy_shop/app/views/empty_data_screen.dart';
 import 'package:ezy_shop/app/views/product/product_card.dart';
+import 'package:ezy_shop/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
@@ -24,7 +26,9 @@ class ShopScreen extends StatelessWidget {
       body: Obx(
         () => productController.isLoading.value
             ? ProductShimmer()
-            : GridView.builder(
+            :productController.products.isNotEmpty?
+            
+             GridView.builder(
                 itemCount: productController.products.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisSpacing: 10,
@@ -35,6 +39,13 @@ class ShopScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final item = productController.products[index];
                   return ProductCard(product: item);
+                },
+              ):EmptyDataScreen(
+                title: "No product available at this moment",
+                buttonText: "Try Again",
+                imageUrl: Assets.images.groceryBag.path,
+                onTap: (){
+                  productController.fetchProducts();
                 },
               ),
       ),

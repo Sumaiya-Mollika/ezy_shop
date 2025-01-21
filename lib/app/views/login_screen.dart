@@ -45,6 +45,7 @@ class LoginScreen extends StatelessWidget {
                       authController.userName.value = identifier!;
                     },
                     hint: 'UserName',
+                    keyboardType: TextInputType.numberWithOptions(),
                   ),
                   TextFieldComponent(
                     onChanged: (String? password) {
