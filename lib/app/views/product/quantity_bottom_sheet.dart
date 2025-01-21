@@ -74,6 +74,8 @@ class QuantityBottomSheet extends StatelessWidget {
             Obx(
               () => cartController.isProductInCart(product.id!)
                   ? Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       spacing: 20,
                       children: [
                         TextComponent(
@@ -83,13 +85,18 @@ class QuantityBottomSheet extends StatelessWidget {
                           width: Get.width * .5,
                           child: TextFormField(
                             controller: quantityController,
+                            textAlign: TextAlign.center,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
+                              isDense: true,
                               border: OutlineInputBorder(),
-                              contentPadding: EdgeInsets.symmetric(
-                                  vertical: 5, horizontal: 10),
-                              prefix: IconButton(
-                                onPressed: () {
+                              contentPadding: EdgeInsets.zero,
+                              suffixIconConstraints:
+                                  BoxConstraints(minWidth: 40, minHeight: 40),
+                              prefixIconConstraints:
+                                  BoxConstraints(minWidth: 40, minHeight: 40),
+                              prefixIcon: GestureDetector(
+                                onTap: () {
                                   if (quantity.value >
                                       product.minimumOrderQuantity!) {
                                     quantity.value -= 1;
@@ -99,10 +106,14 @@ class QuantityBottomSheet extends StatelessWidget {
                                   cartController.updateCartProductQuantity(
                                       product.id!, quantity.value);
                                 },
-                                icon: Icon(Icons.remove),
+                                child: Icon(
+                                  Icons.remove,
+                                  color: AppColors.kErrorColor,
+                                  size: 30,
+                                ),
                               ),
-                              suffix: IconButton(
-                                onPressed: () {
+                              suffixIcon: GestureDetector(
+                                onTap: () {
                                   if (quantity.value < product.stock!) {
                                     quantity.value += 1;
                                     quantityController.text =
@@ -111,7 +122,11 @@ class QuantityBottomSheet extends StatelessWidget {
                                   cartController.updateCartProductQuantity(
                                       product.id!, quantity.value);
                                 },
-                                icon: Icon(Icons.add),
+                                child: Icon(
+                                  Icons.add,
+                                  color: AppColors.primary,
+                                  size: 30,
+                                ),
                               ),
                             ),
                             validator: (value) {

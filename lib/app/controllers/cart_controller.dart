@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:ezy_shop/app/models/cart_item.dart';
 import 'package:ezy_shop/app/models/product_response.dart';
 import 'package:ezy_shop/app/utils/constants.dart';
@@ -38,17 +36,14 @@ class CartController extends GetxController {
     _saveCart();
   }
 
-  // Method to decrease quantity
   void decreaseQuantity(CartItem cartItem) {
-    log("decrese call"+  cartItem.quantity.toString());
     if (cartItem.quantity > cartItem.product.minimumOrderQuantity!) {
-        cartItem.quantity--;
-      log(cartItem.quantity.toString());
+      cartItem.quantity--;
+
       cartItems.refresh();
       getProductQuantity(cartItem.quantity);
-       log( "after refresh"+cartItem.quantity.toString());
+
       _saveCart();
-       log( "after save"+cartItem.quantity.toString());
     } else {
       Get.snackbar('Error',
           'Minimum quantity is ${cartItem.product.minimumOrderQuantity!}',
@@ -56,7 +51,6 @@ class CartController extends GetxController {
     }
   }
 
-  // Method to increase quantity
   void increaseQuantity(CartItem cartItem) {
     int maxQuantity = cartItem.product.stock ?? 0;
     if (cartItem.quantity < maxQuantity) {
@@ -87,30 +81,32 @@ class CartController extends GetxController {
     _saveCart();
   }
 
-  // Show quantity bottom sheet for adjusting product quantity
   void showQuantityBottomSheet(Products product) {
     Get.bottomSheet(
       QuantityBottomSheet(product: product),
       isScrollControlled: true,
     );
   }
+
   bool isProductInCart(int productId) {
     return cartItems.any((product) => product.product.id == productId);
   }
 
-    int? getProductQuantity(int productId){
-    var cartProduct = cartItems.firstWhereOrNull((item) => item.product.id == productId);
-   // log(cartProduct!.quantity.toString());
+  int? getProductQuantity(int productId) {
+    var cartProduct =
+        cartItems.firstWhereOrNull((item) => item.product.id == productId);
+
     return cartProduct?.quantity;
   }
 
-
   void updateCartProductQuantity(int productId, int newQuantity) {
-  // Find the cart item based on product ID
-  var cartProduct = cartItems.firstWhereOrNull((item) => item.product.id == productId);
-  cartProduct!.quantity=newQuantity;
-  cartItems.refresh();
+    var cartProduct =
+        cartItems.firstWhereOrNull((item) => item.product.id == productId);
+    cartProduct!.quantity = newQuantity;
+    cartItems.refresh();
+    _saveCart();
   }
+
   double calculateSubtotal(List<CartItem> cartList) {
     double subtotal = 0.0;
 

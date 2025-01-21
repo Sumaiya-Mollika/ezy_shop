@@ -15,8 +15,7 @@ class AppButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GFButton(
       onPressed: onButtonPress,
-
-      text: buttonText, 
+      text: buttonText,
       color: AppColors.primary,
     );
   }

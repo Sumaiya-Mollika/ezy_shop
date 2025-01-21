@@ -59,9 +59,12 @@ class LoginScreen extends StatelessWidget {
                         ? GFLoader()
                         : AppButton(
                             buttonText: "Login",
-                            onButtonPress:authController.userName.isNotEmpty&&authController.password.isNotEmpty? () {
-                              authController.signInUser(context);
-                            }:null,
+                            onButtonPress: authController.userName.isNotEmpty &&
+                                    authController.password.isNotEmpty
+                                ? () {
+                                    authController.signInUser(context);
+                                  }
+                                : null,
                           );
                   }),
                 ],
@@ -73,4 +76,3 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
-

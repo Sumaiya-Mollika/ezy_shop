@@ -164,7 +164,7 @@ String _applyWeightPromotion(CartItem cartItem) {
 
       final discountPrice = (totalWeight / 1000) * discount;
       final discountedPrice = regularPrice - discountPrice;
-      cartItem.priceAfterDiscount=discountedPrice;
+      cartItem.priceAfterDiscount = discountedPrice;
       return '৳${discountedPrice.toStringAsFixed(2)} (৳$discount off/kg)';
     }
   }

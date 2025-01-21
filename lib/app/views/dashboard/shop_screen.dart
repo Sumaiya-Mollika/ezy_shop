@@ -26,28 +26,29 @@ class ShopScreen extends StatelessWidget {
       body: Obx(
         () => productController.isLoading.value
             ? ProductShimmer()
-            :productController.products.isNotEmpty?
-            
-             GridView.builder(
-                itemCount: productController.products.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  mainAxisExtent: 240,
-                  crossAxisCount: 2,
-                ),
-                itemBuilder: (context, index) {
-                  final item = productController.products[index];
-                  return ProductCard(product: item);
-                },
-              ):EmptyDataScreen(
-                title: "No product available at this moment",
-                buttonText: "Try Again",
-                imageUrl: Assets.images.groceryBag.path,
-                onTap: (){
-                  productController.fetchProducts();
-                },
-              ),
+            : productController.products.isNotEmpty
+                ? GridView.builder(
+                    itemCount: productController.products.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      mainAxisExtent: 240,
+                      crossAxisCount: 2,
+                    ),
+                    itemBuilder: (context, index) {
+                      final item = productController.products[index];
+                      return ProductCard(product: item);
+                    },
+                  )
+                : EmptyDataScreen(
+                    title: "No product available at this moment",
+                    buttonText: "Try Again",
+                    imageUrl: Assets.images.groceryBag.path,
+                    onTap: () {
+                      productController.fetchProducts();
+                    },
+                  ),
       ),
     );
   }

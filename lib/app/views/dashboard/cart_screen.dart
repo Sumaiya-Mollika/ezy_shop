@@ -66,25 +66,38 @@ class CartScreen extends StatelessWidget {
                     titleText: cartItem.product.title ?? '',
                     subTitleText: promotionText ??
                         '৳${cartItem.product.mrp! * cartItem.quantity}',
-                    icon: SizedBox(
-                      width: 120,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          IconButton(
-                            icon: Icon(Icons.remove, color: Colors.red),
-                            onPressed: () {
-                              cartController.decreaseQuantity(cartItem);
-                            },
-                          ),
-                          TextComponent(cartItem.quantity.toString()),
-                          IconButton(
-                            icon: Icon(Icons.add, color: Colors.green),
-                            onPressed: () {
-                              cartController.increaseQuantity(cartItem);
-                            },
-                          ),
-                        ],
+                    icon: Expanded(
+                      child: SizedBox(
+                        width: Get.width * .3,
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                GestureDetector(
+                                  child: Icon(Icons.remove, color: Colors.red),
+                                  onTap: () {
+                                    cartController.decreaseQuantity(cartItem);
+                                  },
+                                ),
+                                TextComponent(
+                                  cartItem.quantity.toString(),
+                                ),
+                                GestureDetector(
+                                  child: Icon(Icons.add, color: Colors.green),
+                                  onTap: () {
+                                    cartController.increaseQuantity(cartItem);
+                                  },
+                                ),
+                              ],
+                            ),
+                            TextComponent(
+                              "Swipe left to remove",
+                              fontSize: TextSize.k12FontSize,
+                              color: const Color(0xFFC37B7E),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -92,17 +105,20 @@ class CartScreen extends StatelessWidget {
                       cartItem.product.promotion!.type == PromotionType.gwp &&
                       promotionText != null)
                     GFListTile(
-                      avatar: GFAvatar(
-                          shape: GFAvatarShape.standard,
-                          backgroundImage: NetworkImage(cartItem
-                              .product
-                              .promotion!
-                              .promotionDetails!
-                              .first
-                              .discountProduct!
-                              .productImages!
-                              .first
-                              .image!)),
+                      avatar: cartItem.product.promotion!.promotionDetails!
+                              .first.discountProduct!.productImages!.isNotEmpty
+                          ? GFAvatar(
+                              shape: GFAvatarShape.standard,
+                              backgroundImage: NetworkImage(cartItem
+                                  .product
+                                  .promotion!
+                                  .promotionDetails!
+                                  .first
+                                  .discountProduct!
+                                  .productImages!
+                                  .first
+                                  .image!))
+                          : null,
                       titleText: cartItem.product.promotion!.promotionDetails!
                           .first.discountProduct!.title,
                     )
@@ -113,21 +129,29 @@ class CartScreen extends StatelessWidget {
         );
       }),
       persistentFooterButtons: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            TextComponent("Subtotal: "),
-            Obx(() => TextComponent(
-                "${CurrencySign.appCurrency} ${cartController.calculateSubtotal(cartController.cartItems)}")),
-          ],
+        Obx(
+          () => cartController.cartItems.isNotEmpty
+              ? Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextComponent("Subtotal: "),
+                        TextComponent(
+                            "${CurrencySign.appCurrency} ${cartController.calculateSubtotal(cartController.cartItems)}"),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 20),
+                      child: AppButton(
+                        buttonText: "Checkout",
+                        onButtonPress: () {},
+                      ),
+                    )
+                  ],
+                )
+              : SizedBox(),
         ),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 20),
-          child: AppButton(
-            buttonText: "Checkout",
-            onButtonPress: () {},
-          ),
-        )
       ],
     );
   }

@@ -9,7 +9,7 @@ class ProductShimmer extends StatelessWidget {
   Widget build(BuildContext context) {
     return GFShimmer(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: Column(
           children: List.generate(3, (_) => _buildShimmerRow()),
         ),
@@ -32,7 +32,8 @@ class ProductShimmer extends StatelessWidget {
     return Container(
       width: Get.width * .42,
       height: 200,
-      color: Colors.white,
+      decoration: BoxDecoration(
+          color: Colors.white, borderRadius: BorderRadius.circular(15)),
     );
   }
 }
