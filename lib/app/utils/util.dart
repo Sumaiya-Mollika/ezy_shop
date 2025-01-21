@@ -133,7 +133,6 @@ class _AnimatedDialogState extends State<_AnimatedDialog>
           ],
         ),
       ),
-      // ),
     );
   }
 }
@@ -165,16 +164,14 @@ String _applyWeightPromotion(CartItem cartItem) {
       final discountPrice = (totalWeight / 1000) * discount;
       final discountedPrice = regularPrice - discountPrice;
       cartItem.priceAfterDiscount = discountedPrice;
-      return '৳${discountedPrice.toStringAsFixed(2)} (৳$discount off/kg)';
+      return '${CurrencySign.appCurrency}${discountedPrice.toStringAsFixed(2)} (${CurrencySign.appCurrency}$discount off/kg)';
     }
   }
 
-  return '৳${cartItem.product.mrp! * cartItem.quantity}';
+  return '${CurrencySign.appCurrency}${cartItem.product.mrp! * cartItem.quantity}';
 }
 
 String? _applyGWPPromotion(CartItem cartItem) {
-  //  final cartController = Get.put(CartController());
-
   final promotionDetails = cartItem.product.promotion!.promotionDetails!;
   final totalWeight = cartItem.quantity * cartItem.product.weight!;
 
@@ -182,15 +179,8 @@ String? _applyGWPPromotion(CartItem cartItem) {
     if (totalWeight >= detail.ruleWeight!) {
       int numberOfGift = (totalWeight / detail.ruleWeight!).floor();
       final numberOfFreeProduct = numberOfGift * detail.amount!.toInt();
-//         if(numberOfFreeProduct!=0){
-// cartController.addToCart(Products(
-//   id: detail.discountProduct!.id,
-//   title: detail.discountProduct!.title,
-//   prouductImages: detail.discountProduct!.productImages
-// ), numberOfFreeProduct);
-//         }
 
-      return '৳${cartItem.product.mrp! * cartItem.quantity} + $numberOfFreeProduct ${detail.discountProduct!.title}';
+      return '${CurrencySign.appCurrency}${cartItem.product.mrp! * cartItem.quantity} + $numberOfFreeProduct ${detail.discountProduct!.title}';
     }
   }
   return null;

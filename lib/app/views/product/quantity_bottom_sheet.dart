@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:ezy_shop/app/controllers/cart_controller.dart';
 import 'package:ezy_shop/app/models/product_response.dart';
 import '../../components/app_button.dart';
+import '../../utils/constants.dart';
 
 class QuantityBottomSheet extends StatelessWidget {
   final Products product;
@@ -20,7 +21,7 @@ class QuantityBottomSheet extends StatelessWidget {
         .obs;
     final TextEditingController quantityController =
         TextEditingController(text: quantity.value.toString());
-    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     return Container(
       width: Get.width,
       padding: EdgeInsets.all(16),
@@ -29,7 +30,7 @@ class QuantityBottomSheet extends StatelessWidget {
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
       child: Form(
-        key: _formKey,
+        key: formKey,
         child: Column(
           spacing: 6,
           mainAxisSize: MainAxisSize.min,
@@ -68,7 +69,7 @@ class QuantityBottomSheet extends StatelessWidget {
             ),
             Obx(
               () => TextComponent(
-                'price: ${getPromotionText(CartItem(product: product, quantity: quantity.value)) ?? '৳${product.mrp! * quantity.value}'}',
+                'price: ${getPromotionText(CartItem(product: product, quantity: quantity.value)) ?? '${CurrencySign.appCurrency}${product.mrp! * quantity.value}'}',
               ),
             ),
             Obx(
@@ -141,13 +142,13 @@ class QuantityBottomSheet extends StatelessWidget {
                               return null;
                             },
                             onTapOutside: (event) {
-                              if (_formKey.currentState!.validate()) {
+                              if (formKey.currentState!.validate()) {
                                 cartController.updateCartProductQuantity(
                                     product.id!, quantity.value);
                               }
                             },
                             onChanged: (value) {
-                              if (_formKey.currentState!.validate()) {
+                              if (formKey.currentState!.validate()) {
                                 int newValue = int.tryParse(value) ??
                                     product.minimumOrderQuantity!;
                                 quantity.value = newValue;

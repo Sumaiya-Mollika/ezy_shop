@@ -65,7 +65,7 @@ class CartScreen extends StatelessWidget {
                         : null,
                     titleText: cartItem.product.title ?? '',
                     subTitleText: promotionText ??
-                        '৳${cartItem.product.mrp! * cartItem.quantity}',
+                        '${CurrencySign.appCurrency}${cartItem.product.mrp! * cartItem.quantity}',
                     icon: Expanded(
                       child: SizedBox(
                         width: Get.width * .3,

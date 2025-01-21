@@ -14,10 +14,9 @@ class AuthServices {
     try {
       final response =
           await _dio.post(AuthEndPoints.signInUrl(), data: request);
-      //   final jsonResponse = jsonDecode(response.data);
+
       return GenericObjectResponse.fromJson(
           response.data, (data) => UserData.fromJson(data));
-      // return User.fromJson(jsonResponse);
     } on DioException catch (e) {
       throw Exception(e.response?.data['message'] ?? 'Sign-in failed');
     }
