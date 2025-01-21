@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ezy_shop/app/models/cart_item.dart';
 import 'package:ezy_shop/app/models/product_response.dart';
 import 'package:ezy_shop/app/utils/constants.dart';
@@ -38,10 +40,15 @@ class CartController extends GetxController {
 
   // Method to decrease quantity
   void decreaseQuantity(CartItem cartItem) {
+    log("decrese call"+  cartItem.quantity.toString());
     if (cartItem.quantity > cartItem.product.minimumOrderQuantity!) {
-      cartItem.quantity--;
+        cartItem.quantity--;
+      log(cartItem.quantity.toString());
       cartItems.refresh();
+      getProductQuantity(cartItem.quantity);
+       log( "after refresh"+cartItem.quantity.toString());
       _saveCart();
+       log( "after save"+cartItem.quantity.toString());
     } else {
       Get.snackbar('Error',
           'Minimum quantity is ${cartItem.product.minimumOrderQuantity!}',
@@ -87,7 +94,23 @@ class CartController extends GetxController {
       isScrollControlled: true,
     );
   }
+  bool isProductInCart(int productId) {
+    return cartItems.any((product) => product.product.id == productId);
+  }
 
+    int? getProductQuantity(int productId){
+    var cartProduct = cartItems.firstWhereOrNull((item) => item.product.id == productId);
+   // log(cartProduct!.quantity.toString());
+    return cartProduct?.quantity;
+  }
+
+
+  void updateCartProductQuantity(int productId, int newQuantity) {
+  // Find the cart item based on product ID
+  var cartProduct = cartItems.firstWhereOrNull((item) => item.product.id == productId);
+  cartProduct!.quantity=newQuantity;
+  cartItems.refresh();
+  }
   double calculateSubtotal(List<CartItem> cartList) {
     double subtotal = 0.0;
 
