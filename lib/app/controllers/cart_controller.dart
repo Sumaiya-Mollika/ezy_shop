@@ -87,4 +87,18 @@ class CartController extends GetxController {
       isScrollControlled: true,
     );
   }
+
+  double calculateSubtotal(List<CartItem> cartList) {
+    double subtotal = 0.0;
+
+    for (var item in cartList) {
+      if (item.priceAfterDiscount != null) {
+        subtotal += item.priceAfterDiscount!;
+      } else {
+        subtotal += item.product.mrp! * item.quantity;
+      }
+    }
+
+    return subtotal.toPrecision(2);
+  }
 }

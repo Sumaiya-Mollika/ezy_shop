@@ -3,34 +3,31 @@ import 'product_response.dart';
 class CartItem {
   final Products product;
   int quantity;
-  bool isFree; // Flag to indicate if this is a free product
-  int? linkedProductId; // ID of the product that the free product is linked to
+  double?priceAfterDiscount;
 
   CartItem({
     required this.product,
     required this.quantity,
-    this.isFree = false, // Default value is false
-    this.linkedProductId,
+    this.priceAfterDiscount,
+
   });
 
-  // Factory method to create a CartItem from a JSON map
   factory CartItem.fromJson(Map<String, dynamic> json) {
     return CartItem(
       product: Products.fromJson(
-          json['product']), // Ensure Products also has a fromJson method
+          json['product']),
       quantity: json['quantity'],
-      isFree: json['isFree'] ?? false, // Default to false if not provided
-      linkedProductId: json['linkedProductId'],
+      priceAfterDiscount: json['priceAfterDiscount'], 
     );
   }
 
-  // Method to convert a CartItem to a JSON map
+
   Map<String, dynamic> toJson() {
     return {
-      'product': product.toJson(), // Ensure Products also has a toJson method
+      'product': product.toJson(), 
       'quantity': quantity,
-      'isFree': isFree,
-      'linkedProductId': linkedProductId,
+      'priceAfterDiscount': priceAfterDiscount,
+      
     };
   }
 }

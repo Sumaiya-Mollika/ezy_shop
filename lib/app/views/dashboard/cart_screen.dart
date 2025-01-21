@@ -1,3 +1,4 @@
+import 'package:ezy_shop/app/components/app_button.dart';
 import 'package:ezy_shop/app/controllers/bottom_nav_controller.dart';
 import 'package:ezy_shop/app/utils/constants.dart';
 import 'package:ezy_shop/app/utils/util.dart';
@@ -111,6 +112,23 @@ class CartScreen extends StatelessWidget {
           },
         );
       }),
+      persistentFooterButtons: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            TextComponent("Subtotal: "),
+            Obx(() => TextComponent(
+                "${CurrencySign.appCurrency} ${cartController.calculateSubtotal(cartController.cartItems)}")),
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 20),
+          child: AppButton(
+            buttonText: "Checkout",
+            onButtonPress: () {},
+          ),
+        )
+      ],
     );
   }
 }
